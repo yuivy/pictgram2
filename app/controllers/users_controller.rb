@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to root_path, success: '登録が完了しました'
     else
+      binding.pry
       flash.now[:danger] = '登録に失敗しました'
       render :new
     end
