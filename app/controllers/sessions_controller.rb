@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   def new
   end
   
+  private
   def create
     user = User.find_by(email: params[:session][:email])
     if user && user.authenticate(params[:session][:password])
@@ -23,7 +24,6 @@ class SessionsController < ApplicationController
     session[:user_id] = user.id
   end
   
-  private
   def log_out
     session.delete(:user_id)
     @current_user = nil
