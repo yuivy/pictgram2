@@ -14,7 +14,7 @@ class TopicsController < ApplicationController
       redirect_to topics_path, success: "投稿に成功しました"
     else
       flash.now[:danger] = "投稿に失敗しました"
-      render :now
+      render :new
     end
   end
   

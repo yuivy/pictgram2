@@ -7,6 +7,7 @@ class FavoritesController < ApplicationController
     favorite = Favorite.new
     favorite.user_id = current_user.id
     favorite.topic_id = params[:topic_id]
+    # @favorites_count = Favorite.where(topic_id: params[:topic_id]).count
     
     if favorite.save
       redirect_to topics_path, success: 'お気に入りに登録しました'
@@ -16,7 +17,7 @@ class FavoritesController < ApplicationController
   end
   
   def destroy
-    Favorite.find_by(params[:topic_id]).destroy
-    redirect_to topic_path, notice: 'お気に入りの登録を解除しました'
+    Favorite.find_by(topic_id: params[:topic_id],user_id: current_user.id).destroy
+    redirect_to topics_path, notice: 'お気に入りの登録を解除しました'
   end
 end
