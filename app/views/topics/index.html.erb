@@ -17,11 +17,28 @@
                 <i class="far fa-grin-hearts"></i>
               <% end %>
             <% end %>
+
+            <%= topic.description %>
+
             <%= topic.favorite_users.count %>
             <%= image_tag 'comment.png', class: 'topic-index-icon' %>
-            <p class="topic-text">
-              <%= topic.description %>
-            </p>
+
+            <div class="comment-wrapper">
+              <h3 class ="comment-text">コメント</h3>
+              <% topic.comments.each do |comment| %>
+                <p class="topic-text">
+                  <%= comment.content %>
+                </p>
+              <% end %>
+            </div>
+
+            <% if logged_in? %>
+              <%= form_for topic.comments.build do |f| %>
+                <%= f.text_area :content, class: 'form-control' %>
+                <%= f.hidden_field :topic_id, value: topic.id %>
+                <%= f.submit '投稿', class: 'btn btn-black btn-block' %>
+              <% end %>
+            <% end %>
           </div>
         </div>
       </div>
